@@ -7,11 +7,11 @@
         </router-link>
         <div class="head-nav">
           <ul class="nav-list">
-            <li>登录</li>
+            <li @click="logClick">登录</li>
             <li class="nav-pile">|</li>
-            <li>注册</li>
+            <li @click="regClick">注册</li>
             <li class="nav-pile">|</li>
-            <li>关于</li>
+            <li @click="aboutClick">关于</li>
           </ul>
         </div>
       </div>
@@ -24,20 +24,39 @@
     <div class="app-foot">
       <p>© 2016 fishenal MIT</p>
     </div>
-
+    <my-dialog :is-show="isShowDialog" @on-close="closeDialog('isShowDialog')">关于</my-dialog>
+    <my-dialog :is-show="isLogDialog" @on-close="closeDialog('isLogDialog')">登录</my-dialog>
+    <my-dialog :is-show="isRegDialog" @on-close="closeDialog('isRegDialog')">注册</my-dialog>
   </div>
 </template>
 
 <script>
+import Dialog from './base/dialog'
 export default {
   components: {
-
+    MyDialog: Dialog
   },
   data () {
     return {
-      msg: 'i am layout'
+      isShowDialog: false,
+      isLogDialog: false,
+      isRegDialog: false
     }
   },
+  methods: {
+    aboutClick () {
+        this.isShowDialog = true
+    },
+    logClick () {
+      this.isLogDialog = true
+    },
+    regClick () {
+      this.isRegDialog = true
+    },
+    closeDialog (attr) {
+        this[attr] = false
+}
+  }
 }
 </script>
 
