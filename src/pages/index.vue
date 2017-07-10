@@ -63,7 +63,6 @@ export default {
   },
   methods: {
     dosomethingOnSlide () {
-        console.log(88888);
     }
   },
   data () {
