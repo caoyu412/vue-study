@@ -7,10 +7,14 @@
         </router-link>
         <div class="head-nav">
           <ul class="nav-list">
-            <li @click="logClick">登录</li>
-            <li class="nav-pile">|</li>
-            <li @click="regClick">注册</li>
-            <li class="nav-pile">|</li>
+            <li>{{ username }}</li>
+            <li v-if="username!== ''" class="nav-pile">|</li>
+            <li v-if="username!== ''" @click="quit">退出</li>
+            <li v-if="username!== ''" class="nav-pile">|</li>
+            <li v-if="username === ''" @click="logClick">登录</li>
+            <li v-if="username === ''" class="nav-pile">|</li>
+            <li v-if="username === ''" @click="regClick">注册</li>
+            <li v-if="username === ''" class="nav-pile">|</li>
             <li @click="aboutClick">关于</li>
           </ul>
         </div>
@@ -24,23 +28,34 @@
     <div class="app-foot">
       <p>© 2016 fishenal MIT</p>
     </div>
-    <my-dialog :is-show="isShowDialog" @on-close="closeDialog('isShowDialog')">关于</my-dialog>
-    <my-dialog :is-show="isLogDialog" @on-close="closeDialog('isLogDialog')">登录</my-dialog>
-    <my-dialog :is-show="isRegDialog" @on-close="closeDialog('isRegDialog')">注册</my-dialog>
+    <my-dialog :is-show="isShowDialog" @on-close="closeDialog('isShowDialog')">
+      <p>本报告在调研数据的基础上，采用定性与定量相结合的方式深入分析了专车市场发展的驱动因素与阻碍因素、专车市场背后的产业格局、专车企业的竞争格局、用户对专车市场的依赖程度、专车对其他交通工具运力的补充效应等，通过这五个章节的研究反映专车市场的发展态势和面临的问题。报告力求客观、深入、准确地反映中国专车市场发展情况，为政府、企事业单位和社会各界提供决策依据。 </p>
+    </my-dialog>
+    <my-dialog :is-show="isLogDialog" @on-close="closeDialog('isLogDialog')">
+      <log-form @has-log="onSuccessLog"></log-form>
+    </my-dialog>
+    <my-dialog :is-show="isRegDialog" @on-close="closeDialog('isRegDialog')">
+      <reg-form></reg-form>
+    </my-dialog>
   </div>
 </template>
 
 <script>
 import Dialog from './base/dialog'
+import LogForm from './logForm'
+import RegForm from './regForm'
 export default {
   components: {
-    MyDialog: Dialog
+    MyDialog: Dialog,
+    LogForm,
+    RegForm,
   },
   data () {
     return {
       isShowDialog: false,
       isLogDialog: false,
-      isRegDialog: false
+      isRegDialog: false,
+      username: ''
     }
   },
   methods: {
@@ -55,7 +70,15 @@ export default {
     },
     closeDialog (attr) {
         this[attr] = false
-}
+    },
+    onSuccessLog () {
+      console.log(data)
+      this.closeDialog ('isShowLogDialog')
+      this.username = data.username
+    },
+    quit () {
+      this.username = ''
+    }
   }
 }
 </script>
