@@ -8,6 +8,7 @@ if (!process.env.NODE_ENV) {
 var opn = require('opn')
 var path = require('path')
 var express = require('express')
+var jsonServer = require('json-server')
 var webpack = require('webpack')
 var proxyMiddleware = require('http-proxy-middleware')
 var webpackConfig = require('./webpack.dev.conf')
@@ -21,6 +22,34 @@ var autoOpenBrowser = !!config.dev.autoOpenBrowser
 var proxyTable = config.dev.proxyTable
 
 var app = express()
+// var bodyParser = require('body-parser')
+// app.use(bodyParser.urlencoded({ extended: true }))
+// app.use(bodyParser.json)
+// var apiRouter = express.Router()
+// var fs = require('fs')
+// apiRouter.route('/:apiName')
+//   .all(function (req, res) {
+//     fs.readFile('./db.json', 'utf8', function (err, data) {
+//       if(err) throw err
+//       var data = JSON.parse(data)
+//       if(data[req.params.apiName]){
+//         res.json(data[req.params.apiName])
+//       }
+//       else {
+//         res.send('no such api name')
+//       }
+//
+//     })
+//   })
+//
+// app.use('/api', apiRouter);
+// app.listen(port + 1, function (err) {
+//   if (err) {
+//     console.log(err)
+//     return
+//   }
+//   console.log('Listening at http://localhost:' + (port + 1) + '\n')
+// })
 var compiler = webpack(webpackConfig)
 
 var devMiddleware = require('webpack-dev-middleware')(compiler, {
@@ -80,6 +109,18 @@ devMiddleware.waitUntilValid(() => {
 })
 
 var server = app.listen(port)
+
+
+
+// module.exports = app.listen(port, function (err) {
+//   if (err) {
+//     console.log(err)
+//     return
+//   }
+//   var uri = 'http://localhost:' + port
+//   console.log('Listening at ' + uri + '\n')
+//   opn(uri)
+// })
 
 module.exports = {
   ready: readyPromise,
