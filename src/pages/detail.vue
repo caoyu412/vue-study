@@ -47,7 +47,7 @@ export default {
         }
       ],
       imgMap: {
-          'detail/count': require("../assets/images/1.png"),
+          '/detail/count': require("../assets/images/1.png"),
           '/detail/forecast': require("../assets/images/2.png"),
           '/detail/analysis': require("../assets/images/3.png"),
           '/detail/publish': require("../assets/images/4.png")
