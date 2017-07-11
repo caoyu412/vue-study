@@ -4,7 +4,7 @@
       <div class="product-board">
         <img :src="productIcon">
         <ul>
-          <router-link v-for="item in products" :to="item.path" tag="li" active-class="active">
+          <router-link v-for="item in products" :key="item.path" :to="{ path: item.path }" tag="li" active-class="active">
             {{ item.name }}
           </router-link>
         </ul>
@@ -20,14 +20,7 @@
 
 <script>
 export default {
-  
-  components: {
-  
-  },
-  methods: {
-    dosomethingOnSlide () {
-    }
-  },
+
   data () {
     return {
       products: [
@@ -51,8 +44,19 @@ export default {
           name: '广告发布',
           path: 'publish',
           active: false
-        },
-      ]
+        }
+      ],
+      imgMap: {
+          'detail/count': require("../assets/images/1.png"),
+          '/detail/forecast': require("../assets/images/2.png"),
+          '/detail/analysis': require("../assets/images/3.png"),
+          '/detail/publish': require("../assets/images/4.png")
+      }
+    }
+  },
+  computed: {
+    productIcon () {
+        return this.imgMap[this.$route.path]
     }
   }
 }

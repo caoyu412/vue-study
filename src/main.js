@@ -18,11 +18,12 @@ let router = new VueRouter({
   routes: [
     {
       path: '/',
-      component: IndexPage
+      component: IndexPage,
     },
     {
       path: '/detail',
       component: DetailPage,
+      redirect: '/detail/analysis',
       children: [
         {
           path: 'forecast',
@@ -41,7 +42,7 @@ let router = new VueRouter({
           component: DetailPubPage
         },
       ]
-    },
+    }
   ]
 })
 
