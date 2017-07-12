@@ -8,6 +8,7 @@ import DetailAnaPage from './pages/detail/analysis'
 import DetailForPage from './pages/detail/forecast'
 import DetailPubPage from './pages/detail/publish'
 import DetailCouPage from './pages/detail/count'
+import OrderList from './pages/order'
 
 Vue.config.productionTip = false
 
@@ -20,6 +21,10 @@ let router = new VueRouter({
     {
       path: '/',
       component: IndexPage,
+    },
+    {
+      path: '/orderList',
+      component: OrderList,
     },
     {
       path: '/detail',
